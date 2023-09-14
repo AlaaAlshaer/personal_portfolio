@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<div class = "row">
+    <div class = "col-md-8">
+        <div class = "card">
+            <div class="card-body">
+
+                <h5 class="card-title">
+                    <a href="{% url "blog_detail" post.id %}">
+                        {{post.title}}
+                    </a>
+                </h5>
+
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {{post.created_at}} | &nbsp; 
+                    {% for category in post.categories.all %}
+                        <a href="{% url "blog_category" category.name %}">
+                            {{category.name}}
+                        </a>&nbsp; 
+                    {% endfor %}
+                </h6>
+                <p class="card-text">
+                    {{post.body}}
+                </p>   
+            </div>
+        </div>
+        <div class= "comment">
+            <h4>comments</h4>
+            {% for comment in comments %}
+                <div class = "card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{comment.body}}
+                        </p>   
+                        <h6 class="card-text text-muted">
+                            {{comment.created_at}} | &nbsp;{{comment.author}} 
+                        </h6>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <form action = "/blog/{{post.id}}/" method="post">
+            {% csrf_token %}
+            <div class= "form-group">
+                {{ form.author }}
+            </div>
+            <div class= "form-group">
+                {{ form.body }}
+            </div>
+          
+            <button class="btn btn-primary"
+                    type="submit">submit
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock%}
