@@ -1,4 +1,6 @@
 # project: personal_portfolio
+# Python version: 3.11.4
+# django version: 4.2.4
 # author: Alaa Alshaer
 # day: Tuesday
 # date: 14 sep 2023
